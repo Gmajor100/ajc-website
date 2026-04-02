@@ -147,6 +147,7 @@
     <li><a href="#timeline">Timeline</a></li>
     <li><a href="#gallery">Gallery</a></li>
     <li><a href="#tributes">Tributes</a></li>
+    <li><a href="#submit-tribute">Share Memory</a></li>
     <li><a href="#programme">Programme</a></li>
     <li><a href="#guestbook">Guestbook</a></li>
   </ul>
@@ -218,6 +219,24 @@
     <div id="tributes-list"><p class="loading-text">Loading tributes...</p></div>
   </div>
 </section>
+
+<section id="submit-tribute" style="padding: 6rem 1.5rem; background: linear-gradient(to bottom, transparent, rgba(139,0,0,0.06), transparent);">
+  <div class="section">
+    <p class="section-label">Share Your Memory</p>
+    <h2 class="section-title">Submit a Tribute</h2>
+    <div class="gold-line"></div>
+    <p style="font-family:'Cormorant Garamond',serif; font-size:1.05rem; color:var(--text-muted); margin-bottom:2rem; line-height:1.7;">Did AJC impact your life? Whether you can make it to the service or not — your words matter. Submit a tribute and the family will review it before it appears on this page.</p>
+    <div class="guestbook-form">
+      <div class="form-group"><label>Your Full Name *</label><input type="text" id="tr-name" placeholder="e.g. Chidi Okonkwo" /></div>
+      <div class="form-group"><label>Your Relationship to AJC *</label><input type="text" id="tr-relationship" placeholder="e.g. Son, Grandchild, Friend, Congregation member…" /></div>
+      <div class="form-group"><label>Your Tribute *</label><textarea id="tr-message" style="min-height:160px;" placeholder="Share a memory, a lesson he taught you, what he meant to you…"></textarea></div>
+      <button class="btn-submit" id="tr-submit" onclick="submitTribute()">Submit Tribute</button>
+      <div class="form-success" id="tr-success">✓ Thank you for your tribute. It will be reviewed by the family and published on this page. 🙏🏾</div>
+      <div class="form-error" id="tr-error">Something went wrong. Please try again.</div>
+    </div>
+  </div>
+</section>
+
 <section id="programme">
   <div class="section">
     <p class="section-label">Final Arrangements</p>
@@ -347,6 +366,29 @@
       document.getElementById('gb-message').value = '';
       document.getElementById('gb-relationship').value = '';
       document.getElementById('gb-attending').value = '';
+    }
+  }
+
+  async function submitTribute() {
+    const name = document.getElementById('tr-name').value.trim();
+    const relationship = document.getElementById('tr-relationship').value.trim();
+    const message = document.getElementById('tr-message').value.trim();
+    const btn = document.getElementById('tr-submit');
+    const success = document.getElementById('tr-success');
+    const errorEl = document.getElementById('tr-error');
+    errorEl.style.display = 'none';
+    if (!name || !message || !relationship) { errorEl.textContent = 'Please fill in all required fields.'; errorEl.style.display = 'block'; return; }
+    btn.disabled = true; btn.textContent = 'Sending…';
+    const { error } = await db.from('tributes').insert([{ name, relationship, message, status: 'pending' }]);
+    if (error) {
+      errorEl.textContent = 'Something went wrong. Please try again.';
+      errorEl.style.display = 'block';
+      btn.disabled = false; btn.textContent = 'Submit Tribute';
+    } else {
+      success.style.display = 'block'; btn.style.display = 'none';
+      document.getElementById('tr-name').value = '';
+      document.getElementById('tr-relationship').value = '';
+      document.getElementById('tr-message').value = '';
     }
   }
 
