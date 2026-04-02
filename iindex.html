@@ -1,0 +1,1257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>In Loving Memory — Anyanwu Jonathan Chukwuma</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Cinzel:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --black: #0a0a0a;
+      --deep-black: #050505;
+      --red: #8B0000;
+      --red-bright: #B22222;
+      --red-glow: #c0392b;
+      --gold: #C9A84C;
+      --gold-light: #e8c96d;
+      --gold-dim: #8a6f2e;
+      --ivory: #f5efe0;
+      --white: #ffffff;
+      --text-muted: #9a8a6a;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--deep-black);
+      color: var(--ivory);
+      font-family: 'Lato', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ── ISIAGU PATTERN SVG BG ── */
+    .isiagu-bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      opacity: 0.04;
+      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23C9A84C' fill-opacity='1'%3E%3Cpath d='M30 0 L60 30 L30 60 L0 30Z'/%3E%3Ccircle cx='30' cy='30' r='8'/%3E%3Cpath d='M30 10 L50 30 L30 50 L10 30Z' fill='none' stroke='%23C9A84C' stroke-width='1'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+
+    section, nav, footer { position: relative; z-index: 1; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: linear-gradient(to bottom, rgba(5,5,5,0.98), transparent);
+      border-bottom: 1px solid rgba(201,168,76,0.15);
+    }
+
+    .nav-logo {
+      font-family: 'Cinzel', serif;
+      color: var(--gold);
+      font-size: 1.1rem;
+      letter-spacing: 0.15em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.8rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--ivory);
+      text-decoration: none;
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover { color: var(--gold); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 6rem 2rem 4rem;
+      background: radial-gradient(ellipse at 50% 30%, rgba(139,0,0,0.35) 0%, rgba(5,5,5,0) 70%);
+      position: relative;
+    }
+
+    .hero-ornament {
+      font-family: 'Cormorant Garamond', serif;
+      color: var(--gold-dim);
+      font-size: 1rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: fadeUp 1s 0.3s forwards;
+    }
+
+    .hero-photo-wrapper {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      border: 3px solid var(--gold);
+      box-shadow: 0 0 0 8px rgba(201,168,76,0.1), 0 0 60px rgba(139,0,0,0.5);
+      overflow: hidden;
+      margin-bottom: 2.5rem;
+      opacity: 0;
+      animation: fadeUp 1s 0.5s forwards;
+      background: linear-gradient(135deg, #1a0a0a, #2a1010);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-photo-placeholder {
+      font-family: 'Cinzel', serif;
+      font-size: 3rem;
+      color: var(--gold);
+      opacity: 0.6;
+    }
+
+    .hero-name {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(2rem, 6vw, 3.8rem);
+      color: var(--gold);
+      letter-spacing: 0.08em;
+      line-height: 1.15;
+      text-shadow: 0 0 40px rgba(201,168,76,0.3);
+      opacity: 0;
+      animation: fadeUp 1s 0.7s forwards;
+    }
+
+    .hero-aka {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1.4rem;
+      color: var(--red-bright);
+      margin-top: 0.5rem;
+      letter-spacing: 0.1em;
+      opacity: 0;
+      animation: fadeUp 1s 0.9s forwards;
+    }
+
+    .hero-dates {
+      font-family: 'Lato', sans-serif;
+      font-weight: 300;
+      font-size: 0.9rem;
+      letter-spacing: 0.3em;
+      color: var(--text-muted);
+      margin-top: 1rem;
+      text-transform: uppercase;
+      opacity: 0;
+      animation: fadeUp 1s 1.1s forwards;
+    }
+
+    .hero-divider {
+      width: 120px;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold), transparent);
+      margin: 2rem auto;
+      opacity: 0;
+      animation: fadeUp 1s 1.2s forwards;
+    }
+
+    .hero-tagline {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: clamp(1.1rem, 3vw, 1.5rem);
+      color: var(--ivory);
+      max-width: 500px;
+      line-height: 1.6;
+      opacity: 0;
+      animation: fadeUp 1s 1.3s forwards;
+    }
+
+    .hero-scripture {
+      margin-top: 2rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+      font-style: italic;
+      opacity: 0;
+      animation: fadeUp 1s 1.5s forwards;
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      opacity: 0;
+      animation: fadeUp 1s 2s forwards;
+    }
+
+    .scroll-hint span {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold-dim);
+    }
+
+    .scroll-arrow {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+      animation: scrollPulse 2s infinite;
+    }
+
+    /* ── SECTIONS ── */
+    .section {
+      padding: 6rem 1.5rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--red-bright);
+      margin-bottom: 0.8rem;
+    }
+
+    .section-title {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      color: var(--gold);
+      margin-bottom: 1rem;
+      letter-spacing: 0.05em;
+    }
+
+    .gold-line {
+      width: 60px;
+      height: 2px;
+      background: var(--gold);
+      margin-bottom: 2.5rem;
+    }
+
+    /* ── BIOGRAPHY ── */
+    #biography {
+      background: linear-gradient(to bottom, transparent, rgba(139,0,0,0.06), transparent);
+      padding: 6rem 1.5rem;
+    }
+
+    .bio-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      line-height: 1.9;
+      color: var(--ivory);
+      opacity: 0.9;
+    }
+
+    .bio-text p + p { margin-top: 1.2rem; }
+
+    .bio-highlight {
+      border-left: 3px solid var(--gold);
+      padding-left: 1.5rem;
+      margin: 2rem 0;
+      font-style: italic;
+      color: var(--gold-light);
+      font-size: 1.25rem;
+    }
+
+    /* ── TIMELINE ── */
+    #timeline { padding: 6rem 1.5rem; }
+
+    .timeline {
+      position: relative;
+      padding-left: 2rem;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0; bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, transparent, var(--gold), var(--red), transparent);
+    }
+
+    .timeline-item {
+      position: relative;
+      padding: 0 0 2.5rem 2rem;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: -5px;
+      top: 6px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--gold);
+      box-shadow: 0 0 10px var(--gold);
+    }
+
+    .timeline-year {
+      font-family: 'Cinzel', serif;
+      font-size: 0.75rem;
+      color: var(--red-bright);
+      letter-spacing: 0.2em;
+      margin-bottom: 0.3rem;
+    }
+
+    .timeline-event {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem;
+      color: var(--ivory);
+      line-height: 1.5;
+    }
+
+    /* ── GALLERY ── */
+    #gallery {
+      padding: 6rem 1.5rem;
+      background: rgba(139,0,0,0.04);
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.8rem;
+      margin-top: 1rem;
+    }
+
+    .gallery-item {
+      aspect-ratio: 1;
+      background: linear-gradient(135deg, #1a0505, #250a0a);
+      border: 1px solid rgba(201,168,76,0.2);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+
+    .gallery-item:first-child {
+      grid-column: span 2;
+      aspect-ratio: 16/9;
+    }
+
+    .gallery-item:hover {
+      border-color: var(--gold);
+      transform: scale(1.01);
+    }
+
+    .gallery-placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--gold-dim);
+    }
+
+    .gallery-placeholder span {
+      font-size: 1.5rem;
+    }
+
+    .gallery-placeholder p {
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    /* ── TRIBUTES ── */
+    #tributes { padding: 6rem 1.5rem; }
+
+    .tribute-card {
+      background: linear-gradient(135deg, rgba(139,0,0,0.12), rgba(10,10,10,0.8));
+      border: 1px solid rgba(201,168,76,0.2);
+      border-radius: 6px;
+      padding: 2rem;
+      margin-bottom: 1.2rem;
+      position: relative;
+    }
+
+    .tribute-card::before {
+      content: '"';
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 5rem;
+      color: var(--red);
+      position: absolute;
+      top: -0.5rem;
+      left: 1rem;
+      opacity: 0.4;
+      line-height: 1;
+    }
+
+    .tribute-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1.1rem;
+      line-height: 1.7;
+      color: var(--ivory);
+      padding-top: 1rem;
+    }
+
+    .tribute-author {
+      margin-top: 1rem;
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .tribute-pending {
+      text-align: center;
+      padding: 2rem;
+      border: 1px dashed rgba(201,168,76,0.3);
+      border-radius: 6px;
+      color: var(--text-muted);
+      font-style: italic;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+    }
+
+    /* ── GUESTBOOK ── */
+    #guestbook {
+      padding: 6rem 1.5rem;
+      background: linear-gradient(to bottom, transparent, rgba(139,0,0,0.07), transparent);
+    }
+
+    .guestbook-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .form-group label {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold-dim);
+    }
+
+    .form-group input,
+    .form-group textarea {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(201,168,76,0.25);
+      border-radius: 4px;
+      padding: 0.9rem 1rem;
+      color: var(--ivory);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: var(--gold);
+    }
+
+    .form-group textarea { resize: vertical; min-height: 120px; }
+
+    .btn-submit {
+      align-self: flex-start;
+      background: linear-gradient(135deg, var(--red), #6b0000);
+      border: 1px solid var(--gold-dim);
+      color: var(--gold-light);
+      font-family: 'Cinzel', serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 0.9rem 2.5rem;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .btn-submit:hover {
+      background: linear-gradient(135deg, var(--red-bright), var(--red));
+      box-shadow: 0 0 20px rgba(139,0,0,0.5);
+      color: var(--white);
+    }
+
+    /* ── PROGRAMME ── */
+    #programme { padding: 6rem 1.5rem; }
+
+    .programme-card {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(201,168,76,0.15);
+      border-radius: 6px;
+      overflow: hidden;
+      margin-bottom: 1rem;
+    }
+
+    .programme-header {
+      background: linear-gradient(135deg, var(--red), #5a0000);
+      padding: 1rem 1.5rem;
+      font-family: 'Cinzel', serif;
+      font-size: 0.9rem;
+      color: var(--gold-light);
+      letter-spacing: 0.1em;
+    }
+
+    .programme-body {
+      padding: 1.5rem;
+    }
+
+    .programme-row {
+      display: flex;
+      gap: 1rem;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid rgba(201,168,76,0.08);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+    }
+
+    .programme-row:last-child { border-bottom: none; }
+
+    .programme-time {
+      color: var(--gold);
+      min-width: 80px;
+      font-weight: 600;
+    }
+
+    .programme-event { color: var(--ivory); }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 4rem 2rem 2rem;
+      text-align: center;
+      border-top: 1px solid rgba(201,168,76,0.1);
+    }
+
+    .footer-name {
+      font-family: 'Cinzel', serif;
+      font-size: 1.2rem;
+      color: var(--gold);
+      letter-spacing: 0.15em;
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-tagline {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      color: var(--text-muted);
+      font-size: 1rem;
+    }
+
+    .footer-scripture {
+      margin-top: 1.5rem;
+      font-size: 0.75rem;
+      color: var(--gold-dim);
+      letter-spacing: 0.1em;
+    }
+
+    .footer-copy {
+      margin-top: 2rem;
+      font-size: 0.65rem;
+      color: rgba(154,138,106,0.4);
+      letter-spacing: 0.1em;
+    }
+
+    /* ── ADMIN LINK ── */
+    .admin-link {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      z-index: 200;
+      background: rgba(10,10,10,0.9);
+      border: 1px solid rgba(201,168,76,0.3);
+      color: var(--gold-dim);
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      border-radius: 3px;
+      transition: all 0.3s;
+    }
+
+    .admin-link:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    /* ── ADMIN PANEL ── */
+    #admin-panel {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      background: rgba(5,5,5,0.97);
+      padding: 2rem 1.5rem;
+      overflow-y: auto;
+    }
+
+    #admin-panel.active { display: block; }
+
+    .admin-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid rgba(201,168,76,0.2);
+    }
+
+    .admin-title {
+      font-family: 'Cinzel', serif;
+      color: var(--gold);
+      font-size: 1.2rem;
+      letter-spacing: 0.1em;
+    }
+
+    .admin-close {
+      background: none;
+      border: 1px solid rgba(201,168,76,0.3);
+      color: var(--gold-dim);
+      padding: 0.4rem 1rem;
+      font-size: 0.75rem;
+      cursor: pointer;
+      font-family: 'Lato', sans-serif;
+      letter-spacing: 0.1em;
+      border-radius: 3px;
+      transition: all 0.3s;
+    }
+
+    .admin-close:hover { border-color: var(--gold); color: var(--gold); }
+
+    .admin-login {
+      max-width: 360px;
+      margin: 4rem auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .admin-login h2 {
+      font-family: 'Cinzel', serif;
+      color: var(--gold);
+      font-size: 1rem;
+      letter-spacing: 0.15em;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .admin-login input {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(201,168,76,0.25);
+      border-radius: 4px;
+      padding: 0.9rem 1rem;
+      color: var(--ivory);
+      font-family: 'Lato', sans-serif;
+      font-size: 0.9rem;
+      outline: none;
+    }
+
+    .admin-login input:focus { border-color: var(--gold); }
+
+    .btn-login {
+      background: linear-gradient(135deg, var(--red), #6b0000);
+      border: 1px solid var(--gold-dim);
+      color: var(--gold-light);
+      font-family: 'Cinzel', serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 0.9rem;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .btn-login:hover { background: linear-gradient(135deg, var(--red-bright), var(--red)); }
+
+    .admin-dashboard { display: none; }
+    .admin-dashboard.active { display: block; }
+
+    .admin-tabs {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .admin-tab {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(201,168,76,0.2);
+      color: var(--text-muted);
+      padding: 0.5rem 1.2rem;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      cursor: pointer;
+      border-radius: 3px;
+      font-family: 'Lato', sans-serif;
+      transition: all 0.3s;
+    }
+
+    .admin-tab.active, .admin-tab:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: rgba(201,168,76,0.08);
+    }
+
+    .admin-content { display: none; }
+    .admin-content.active { display: block; }
+
+    .admin-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+    }
+
+    .admin-table th {
+      font-family: 'Cinzel', serif;
+      color: var(--gold-dim);
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      text-align: left;
+      padding: 0.6rem 0.8rem;
+      border-bottom: 1px solid rgba(201,168,76,0.15);
+    }
+
+    .admin-table td {
+      padding: 0.7rem 0.8rem;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      color: var(--ivory);
+      vertical-align: top;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 2px;
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .badge-pending { background: rgba(201,168,76,0.15); color: var(--gold); border: 1px solid var(--gold-dim); }
+    .badge-approved { background: rgba(0,100,0,0.2); color: #7dbb7d; border: 1px solid #4a7a4a; }
+
+    .btn-approve {
+      background: rgba(0,80,0,0.3);
+      border: 1px solid #4a7a4a;
+      color: #7dbb7d;
+      padding: 0.3rem 0.8rem;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      border-radius: 2px;
+      font-family: 'Lato', sans-serif;
+      margin-right: 0.4rem;
+      transition: all 0.2s;
+    }
+
+    .btn-reject {
+      background: rgba(80,0,0,0.3);
+      border: 1px solid #7a4a4a;
+      color: #bb7d7d;
+      padding: 0.3rem 0.8rem;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      border-radius: 2px;
+      font-family: 'Lato', sans-serif;
+      transition: all 0.2s;
+    }
+
+    .stat-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(201,168,76,0.15);
+      border-radius: 6px;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .stat-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .stat-value {
+      font-family: 'Cinzel', serif;
+      font-size: 2rem;
+      color: var(--gold);
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 1; }
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      .gallery-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="isiagu-bg"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">AJC</div>
+  <ul class="nav-links">
+    <li><a href="#biography">Biography</a></li>
+    <li><a href="#timeline">Timeline</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#tributes">Tributes</a></li>
+    <li><a href="#programme">Programme</a></li>
+    <li><a href="#guestbook">Guestbook</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <p class="hero-ornament">✦ In Loving Memory ✦</p>
+
+  <div class="hero-photo-wrapper">
+    <div class="hero-photo-placeholder">AJC</div>
+  </div>
+
+  <h1 class="hero-name">Anyanwu Jonathan<br>Chukwuma</h1>
+  <p class="hero-aka">"AJC"</p>
+  <p class="hero-dates">[Date of Birth] &nbsp;—&nbsp; [Date of Death]</p>
+
+  <div class="hero-divider"></div>
+
+  <p class="hero-tagline">"AJC — Forever in our hearts,<br>forever in our prayers."</p>
+
+  <p class="hero-scripture">
+    "The righteous will flourish like a palm tree." — Psalm 92:12 (NWT)
+  </p>
+
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <div class="scroll-arrow"></div>
+  </div>
+</section>
+
+<!-- BIOGRAPHY -->
+<section id="biography">
+  <div class="section" style="max-width:800px; margin:0 auto;">
+    <p class="section-label">His Story</p>
+    <h2 class="section-title">A Life Well Lived</h2>
+    <div class="gold-line"></div>
+
+    <div class="bio-text">
+      <p>Anyanwu Jonathan Chukwuma — known to all who loved him as <strong style="color:var(--gold)">AJC</strong> — was born in Plateau State, Nigeria, into a family rooted in faith, hard work, and deep Igbo tradition. From his earliest days, he carried himself with the kind of quiet dignity that commands respect without demanding it.</p>
+
+      <div class="bio-highlight">
+        "He walked into every room and the atmosphere changed — not because he was loud, but because he was present."
+      </div>
+
+      <p>A trained and accomplished architect, AJC spent his career shaping spaces and building structures that outlasted him — a fitting legacy for a man who spent his life building people too. After retirement, he devoted himself entirely to his faith, his family, and his community, becoming a beloved father figure to all who knew him.</p>
+
+      <p>As one of Jehovah's Witnesses, his faith was not merely a part of his life — it was the foundation of it. He studied the Scriptures diligently, attended every meeting with faithfulness, and lived out the principles he believed in with remarkable consistency. He was jovial, warm, and endlessly encouraging — a man whose laughter could fill a room and whose counsel could settle a storm.</p>
+
+      <p>He is survived by his 5 beloved children, his grandchildren, and a community of people whose lives he touched and transformed. AJC did not just live — he gave life to everyone around him.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section id="timeline">
+  <div class="section">
+    <p class="section-label">His Journey</p>
+    <h2 class="section-title">Milestones of a Life</h2>
+    <div class="gold-line"></div>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <p class="timeline-year">[YEAR OF BIRTH]</p>
+        <p class="timeline-event">Born in Plateau State, Nigeria — a gift to his family and a future blessing to all who would know him.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <p class="timeline-year">[YEAR]</p>
+        <p class="timeline-event">Studied Architecture — began the career that would see him shape skylines and spaces across Nigeria.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <p class="timeline-year">[YEAR]</p>
+        <p class="timeline-event">Dedicated his life to Jehovah — his faith became the cornerstone of everything he did and everything he was.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <p class="timeline-year">[YEAR]</p>
+        <p class="timeline-event">Marriage — began the family that would become his greatest achievement and deepest joy.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <p class="timeline-year">[YEAR]</p>
+        <p class="timeline-event">Became a father — the first of 5 children who would call him their rock, their refuge, and their greatest teacher.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <p class="timeline-year">[YEAR]</p>
+        <p class="timeline-event">Retirement — traded blueprints for Bible studies and dedicated his days fully to family, faith and community.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot" style="background:var(--red); box-shadow: 0 0 10px var(--red);"></div>
+        <p class="timeline-year" style="color:var(--text-muted);">[DATE OF PASSING]</p>
+        <p class="timeline-event" style="color:var(--text-muted); font-style:italic;">Entered his rest — leaving behind a legacy that no photograph can fully capture and no words can wholly contain.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="section">
+    <p class="section-label">Memories</p>
+    <h2 class="section-title">A Life in Pictures</h2>
+    <div class="gold-line"></div>
+
+    <div class="gallery-grid">
+      <div class="gallery-item">
+        <div class="gallery-placeholder">
+          <span>🖼️</span>
+          <p>Main Portrait</p>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-placeholder"><span>🖼️</span><p>Family</p></div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-placeholder"><span>🖼️</span><p>Early Years</p></div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-placeholder"><span>🖼️</span><p>Career</p></div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-placeholder"><span>🖼️</span><p>Community</p></div>
+      </div>
+    </div>
+
+    <p style="margin-top:1.5rem; font-size:0.8rem; color:var(--text-muted); font-style:italic; text-align:center;">
+      Photos will be added as they are gathered from family members.
+    </p>
+  </div>
+</section>
+
+<!-- TRIBUTES -->
+<section id="tributes">
+  <div class="section">
+    <p class="section-label">Words of Love</p>
+    <h2 class="section-title">Family Tributes</h2>
+    <div class="gold-line"></div>
+
+    <div class="tribute-card">
+      <p class="tribute-text">Papa was the kind of man who made you feel like everything was going to be alright just by being in the same room. His faith never wavered, his love never faltered. I will carry his voice with me for the rest of my life.</p>
+      <p class="tribute-author">— [Child's Name], Son/Daughter</p>
+    </div>
+
+    <div class="tribute-card">
+      <p class="tribute-text">Grandpa AJC had a laugh that shook the whole house. He never passed up an opportunity to make you smile — but he also never passed up an opportunity to teach you something meaningful. We were so blessed to be his grandchildren.</p>
+      <p class="tribute-author">— [Grandchild's Name], Grandchild</p>
+    </div>
+
+    <div class="tribute-pending">
+      More tributes are being reviewed and will appear here soon. 🕊️
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAMME -->
+<section id="programme">
+  <div class="section">
+    <p class="section-label">Final Arrangements</p>
+    <h2 class="section-title">Funeral Programme</h2>
+    <div class="gold-line"></div>
+
+    <div class="programme-card">
+      <div class="programme-header">📍 Lying in State — [Date] &nbsp;|&nbsp; [Venue], [City]</div>
+      <div class="programme-body">
+        <div class="programme-row">
+          <span class="programme-time">[Time]</span>
+          <span class="programme-event">Arrival of Family</span>
+        </div>
+        <div class="programme-row">
+          <span class="programme-time">[Time]</span>
+          <span class="programme-event">Opening Scripture & Prayer</span>
+        </div>
+        <div class="programme-row">
+          <span class="programme-time">[Time]</span>
+          <span class="programme-event">Public Viewing</span>
+        </div>
+        <div class="programme-row">
+          <span class="programme-time">[Time]</span>
+          <span class="programme-event">Tributes from Family & Friends</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="programme-card">
+      <div class="programme-header">⛪ Burial Service — [Date] &nbsp;|&nbsp; [Venue], [City]</div>
+      <div class="programme-body">
+        <div class="programme-row">
+          <span class="programme-time">[Time]</span>
+          <span class="programme-event">Kingdom Hall Memorial Talk</span>
+        </div>
+        <div class="programme-row">
+          <span class="programme-time">[Time]</span>
+          <span class="programme-event">Song & Scripture Reading</span>
+        </div>
+        <div class="programme-row">
+          <span class="programme-time">[Time]</span>
+          <span class="programme-event">Committal & Interment</span>
+        </div>
+        <div class="programme-row">
+          <span class="programme-time">[Time]</span>
+          <span class="programme-event">Family Reception</span>
+        </div>
+      </div>
+    </div>
+
+    <p style="margin-top:1rem; font-size:0.8rem; color:var(--text-muted); font-style:italic;">
+      * All times and venues are placeholders and will be updated shortly.
+    </p>
+  </div>
+</section>
+
+<!-- GUESTBOOK -->
+<section id="guestbook">
+  <div class="section">
+    <p class="section-label">Leave a Message</p>
+    <h2 class="section-title">Sign the Guestbook</h2>
+    <div class="gold-line"></div>
+
+    <p style="font-family:'Cormorant Garamond',serif; font-size:1.05rem; color:var(--text-muted); margin-bottom:2rem; line-height:1.7;">
+      If AJC touched your life in any way, we would be honoured to hear from you. Leave a message for the family — all entries are reviewed before being displayed.
+    </p>
+
+    <div class="guestbook-form">
+      <div class="form-group">
+        <label>Your Full Name *</label>
+        <input type="text" placeholder="e.g. Chidi Okonkwo" />
+      </div>
+      <div class="form-group">
+        <label>Your Relationship to AJC</label>
+        <input type="text" placeholder="e.g. Family friend, Neighbour, Colleague…" />
+      </div>
+      <div class="form-group">
+        <label>Your Message *</label>
+        <textarea placeholder="Share a memory, a word of comfort, or a prayer for the family…"></textarea>
+      </div>
+      <div class="form-group">
+        <label>Will you be attending the service?</label>
+        <input type="text" placeholder="Yes / No / Not yet sure" />
+      </div>
+      <button class="btn-submit">Submit Message</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p class="footer-name">Anyanwu Jonathan Chukwuma</p>
+  <p class="footer-tagline">"AJC — Forever in our hearts."</p>
+  <p class="footer-scripture">"He will swallow up death forever." — Isaiah 25:8 (NWT)</p>
+  <p class="footer-copy">Designed with love by the Anyanwu Family &nbsp;·&nbsp; [YEAR]</p>
+</footer>
+
+<!-- ADMIN LINK -->
+<a href="#" class="admin-link" onclick="openAdmin(event)">Admin ⚙</a>
+
+<!-- ADMIN PANEL -->
+<div id="admin-panel">
+  <div class="admin-header">
+    <span class="admin-title">⚙ Admin Panel — AJC Memorial</span>
+    <button class="admin-close" onclick="closeAdmin()">✕ Close</button>
+  </div>
+
+  <!-- LOGIN -->
+  <div class="admin-login" id="admin-login">
+    <h2>Admin Access</h2>
+    <input type="text" id="admin-user" placeholder="Username" />
+    <input type="password" id="admin-pass" placeholder="Password" />
+    <button class="btn-login" onclick="adminLogin()">Enter</button>
+    <p id="login-error" style="color:#bb7d7d; font-size:0.75rem; text-align:center; display:none;">Incorrect credentials. Try again.</p>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div class="admin-dashboard" id="admin-dashboard">
+    <div class="admin-tabs">
+      <button class="admin-tab active" onclick="switchTab('overview', this)">Overview</button>
+      <button class="admin-tab" onclick="switchTab('tributes', this)">Tributes</button>
+      <button class="admin-tab" onclick="switchTab('guestbook', this)">Guestbook / RSVPs</button>
+    </div>
+
+    <!-- OVERVIEW -->
+    <div class="admin-content active" id="tab-overview">
+      <div class="stat-card">
+        <div>
+          <p class="stat-label">Total RSVPs</p>
+          <p style="font-size:0.75rem; color:var(--text-muted); margin-top:0.2rem;">Attending the service</p>
+        </div>
+        <p class="stat-value">12</p>
+      </div>
+      <div class="stat-card">
+        <div>
+          <p class="stat-label">Tributes Pending</p>
+          <p style="font-size:0.75rem; color:var(--text-muted); margin-top:0.2rem;">Awaiting your approval</p>
+        </div>
+        <p class="stat-value" style="color:var(--red-bright);">3</p>
+      </div>
+      <div class="stat-card">
+        <div>
+          <p class="stat-label">Guestbook Messages</p>
+          <p style="font-size:0.75rem; color:var(--text-muted); margin-top:0.2rem;">Total received</p>
+        </div>
+        <p class="stat-value">8</p>
+      </div>
+    </div>
+
+    <!-- TRIBUTES -->
+    <div class="admin-content" id="tab-tributes">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Message (preview)</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Emeka Anyanwu</td>
+            <td style="color:var(--text-muted); font-style:italic; font-size:0.85rem;">Papa was the most patient man I ever knew…</td>
+            <td><span class="badge badge-pending">Pending</span></td>
+            <td>
+              <button class="btn-approve">✓ Approve</button>
+              <button class="btn-reject">✕ Reject</button>
+            </td>
+          </tr>
+          <tr>
+            <td>Adaeze Obi</td>
+            <td style="color:var(--text-muted); font-style:italic; font-size:0.85rem;">He always had a scripture ready for every situation…</td>
+            <td><span class="badge badge-pending">Pending</span></td>
+            <td>
+              <button class="btn-approve">✓ Approve</button>
+              <button class="btn-reject">✕ Reject</button>
+            </td>
+          </tr>
+          <tr>
+            <td>Brother Chima</td>
+            <td style="color:var(--text-muted); font-style:italic; font-size:0.85rem;">At the Kingdom Hall he was always the first to arrive…</td>
+            <td><span class="badge badge-approved">Approved</span></td>
+            <td style="color:var(--text-muted); font-size:0.75rem;">—</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- GUESTBOOK -->
+    <div class="admin-content" id="tab-guestbook">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Relationship</th>
+            <th>RSVP</th>
+            <th>Message</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Ngozi Eze</td>
+            <td style="color:var(--text-muted);">Family friend</td>
+            <td><span class="badge badge-approved">Attending</span></td>
+            <td style="color:var(--text-muted); font-style:italic; font-size:0.85rem;">May his memory be a blessing…</td>
+          </tr>
+          <tr>
+            <td>Pastor Dele</td>
+            <td style="color:var(--text-muted);">Colleague</td>
+            <td><span class="badge badge-pending">Not Sure</span></td>
+            <td style="color:var(--text-muted); font-style:italic; font-size:0.85rem;">AJC was a great man of faith…</td>
+          </tr>
+          <tr>
+            <td>Chukwuemeka Nwosu</td>
+            <td style="color:var(--text-muted);">Neighbour</td>
+            <td><span class="badge badge-approved">Attending</span></td>
+            <td style="color:var(--text-muted); font-style:italic; font-size:0.85rem;">We will never forget him in our street…</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+  function openAdmin(e) {
+    e.preventDefault();
+    document.getElementById('admin-panel').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeAdmin() {
+    document.getElementById('admin-panel').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  function adminLogin() {
+    const u = document.getElementById('admin-user').value;
+    const p = document.getElementById('admin-pass').value;
+    // Demo credentials — will be replaced with real auth
+    if (u === 'ajcadmin' && p === 'ajc2025') {
+      document.getElementById('admin-login').style.display = 'none';
+      document.getElementById('admin-dashboard').classList.add('active');
+    } else {
+      document.getElementById('login-error').style.display = 'block';
+    }
+  }
+
+  function switchTab(tab, el) {
+    document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.admin-content').forEach(c => c.classList.remove('active'));
+    el.classList.add('active');
+    document.getElementById('tab-' + tab).classList.add('active');
+  }
+</script>
+
+</body>
+</html>
