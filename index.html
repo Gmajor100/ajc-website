@@ -471,9 +471,28 @@
   }
 
   async function updateTribute(id, status) {
-    await db.from('tributes').update({ status }).eq('id', id);
-    loadAdminData();
-    loadTributes();
+    const { error } = await db.from('tributes').update({ status }).eq('id', id);
+    if (!error) {
+      showToast(
+        status === 'approved' ? '✓ Tribute approved! It is now live on the website.' :
+        status === 'rejected' ? '✕ Tribute rejected and removed from the list.' :
+        '↩ Tribute moved back to pending.',
+        status === 'approved' ? '#4a7a4a' : status === 'rejected' ? '#7a4a4a' : '#8a6f2e'
+      );
+      loadAdminData();
+      loadTributes();
+    }
+  }
+
+  function showToast(message, borderColor) {
+    const existing = document.getElementById('admin-toast');
+    if (existing) existing.remove();
+    const toast = document.createElement('div');
+    toast.id = 'admin-toast';
+    toast.style.cssText = `position:fixed;top:1.5rem;left:50%;transform:translateX(-50%);background:#0f0505;border:1px solid ${borderColor};color:var(--ivory);font-family:'Cormorant Garamond',serif;font-size:1rem;padding:0.9rem 1.8rem;border-radius:6px;z-index:99999;text-align:center;box-shadow:0 4px 20px rgba(0,0,0,0.5);`;
+    toast.textContent = message;
+    document.body.appendChild(toast);
+    setTimeout(() => toast.remove(), 3500);
   }
 
   function confirmReject(id) {
@@ -482,10 +501,10 @@
     overlay.innerHTML = `
       <div class="confirm-box">
         <p class="confirm-title">Confirm Rejection</p>
-        <p class="confirm-msg">Are you sure you want to reject this tribute? It will not appear on the website.</p>
+        <p class="confirm-msg">Are you sure you want to reject this tribute? It will be removed from the pending list and will not appear on the website.</p>
         <div class="confirm-btns">
           <button class="btn-cancel" onclick="this.closest('.confirm-overlay').remove()">Cancel</button>
-          <button class="btn-confirm-reject" onclick="updateTribute('${id}','rejected');this.closest('.confirm-overlay').remove();">Yes, Reject</button>
+          <button class="btn-confirm-reject" onclick="this.closest('.confirm-overlay').remove();updateTribute('${id}','rejected');">Yes, Reject</button>
         </div>
       </div>
     `;
