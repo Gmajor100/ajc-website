@@ -8,15 +8,9 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
     :root {
-      --deep-black: #050505;
-      --red: #8B0000;
-      --red-bright: #B22222;
-      --gold: #C9A84C;
-      --gold-light: #e8c96d;
-      --gold-dim: #8a6f2e;
-      --ivory: #f5efe0;
-      --white: #ffffff;
-      --text-muted: #9a8a6a;
+      --deep-black: #050505; --red: #8B0000; --red-bright: #B22222;
+      --gold: #C9A84C; --gold-light: #e8c96d; --gold-dim: #8a6f2e;
+      --ivory: #f5efe0; --white: #ffffff; --text-muted: #9a8a6a;
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
@@ -25,8 +19,8 @@
     section, nav, footer { position: relative; z-index: 1; }
     nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; background: linear-gradient(to bottom, rgba(5,5,5,0.98), transparent); border-bottom: 1px solid rgba(201,168,76,0.15); }
     .nav-logo { font-family: 'Cinzel', serif; color: var(--gold); font-size: 1.1rem; letter-spacing: 0.15em; }
-    .nav-links { display: flex; gap: 1.8rem; list-style: none; }
-    .nav-links a { color: var(--ivory); text-decoration: none; font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; transition: color 0.3s; }
+    .nav-links { display: flex; gap: 1.5rem; list-style: none; }
+    .nav-links a { color: var(--ivory); text-decoration: none; font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; transition: color 0.3s; }
     .nav-links a:hover { color: var(--gold); }
     #hero { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 6rem 2rem 4rem; background: radial-gradient(ellipse at 50% 30%, rgba(139,0,0,0.35) 0%, rgba(5,5,5,0) 70%); }
     .hero-ornament { font-family: 'Cormorant Garamond', serif; color: var(--gold-dim); font-size: 1rem; letter-spacing: 0.4em; text-transform: uppercase; margin-bottom: 2rem; opacity: 0; animation: fadeUp 1s 0.3s forwards; }
@@ -67,7 +61,8 @@
     .tribute-text { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.1rem; line-height: 1.7; color: var(--ivory); padding-top: 1rem; }
     .tribute-author { margin-top: 1rem; font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); }
     .empty-state { text-align: center; padding: 2rem; border: 1px dashed rgba(201,168,76,0.3); border-radius: 6px; color: var(--text-muted); font-style: italic; font-family: 'Cormorant Garamond', serif; font-size: 1rem; }
-    #guestbook { padding: 6rem 1.5rem; background: linear-gradient(to bottom, transparent, rgba(139,0,0,0.07), transparent); }
+    #submit-tribute { padding: 6rem 1.5rem; background: linear-gradient(to bottom, transparent, rgba(139,0,0,0.06), transparent); }
+    #guestbook { padding: 6rem 1.5rem; }
     .guestbook-form { display: flex; flex-direction: column; gap: 1rem; }
     .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
     .form-group label { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold-dim); }
@@ -80,7 +75,7 @@
     .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }
     .form-success { background: rgba(0,80,0,0.2); border: 1px solid #4a7a4a; border-radius: 6px; padding: 1.2rem 1.5rem; color: #7dbb7d; font-family: 'Cormorant Garamond', serif; font-size: 1rem; display: none; margin-top: 1rem; }
     .form-error { background: rgba(80,0,0,0.2); border: 1px solid #7a4a4a; border-radius: 6px; padding: 1.2rem 1.5rem; color: #bb7d7d; font-family: 'Cormorant Garamond', serif; font-size: 1rem; display: none; margin-top: 1rem; }
-    #programme { padding: 6rem 1.5rem; }
+    #programme { padding: 6rem 1.5rem; background: rgba(139,0,0,0.04); }
     .programme-card { background: rgba(255,255,255,0.02); border: 1px solid rgba(201,168,76,0.15); border-radius: 6px; overflow: hidden; margin-bottom: 1rem; }
     .programme-header { background: linear-gradient(135deg, var(--red), #5a0000); padding: 1rem 1.5rem; font-family: 'Cinzel', serif; font-size: 0.9rem; color: var(--gold-light); letter-spacing: 0.1em; }
     .programme-body { padding: 1.5rem; }
@@ -121,9 +116,7 @@
     .stat-label { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); }
     .stat-sub { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.2rem; }
     .stat-value { font-family: 'Cinzel', serif; font-size: 2rem; color: var(--gold); }
-    .admin-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
-    .admin-table th { font-family: 'Cinzel', serif; color: var(--gold-dim); font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; text-align: left; padding: 0.6rem 0.8rem; border-bottom: 1px solid rgba(201,168,76,0.15); }
-    .admin-table td { padding: 0.7rem 0.8rem; border-bottom: 1px solid rgba(255,255,255,0.05); color: var(--ivory); vertical-align: top; }
+    .tribute-admin-card { background: rgba(255,255,255,0.02); border: 1px solid rgba(201,168,76,0.12); border-radius: 6px; padding: 1.2rem; margin-bottom: 1rem; }
     .badge { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 2px; font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; }
     .badge-pending { background: rgba(201,168,76,0.15); color: var(--gold); border: 1px solid var(--gold-dim); }
     .badge-approved { background: rgba(0,100,0,0.2); color: #7dbb7d; border: 1px solid #4a7a4a; }
@@ -131,15 +124,27 @@
     .badge-Yes { background: rgba(0,100,0,0.2); color: #7dbb7d; border: 1px solid #4a7a4a; }
     .badge-No { background: rgba(80,0,0,0.2); color: #bb7d7d; border: 1px solid #7a4a4a; }
     .badge-notsure { background: rgba(201,168,76,0.15); color: var(--gold); border: 1px solid var(--gold-dim); }
-    .btn-approve { background: rgba(0,80,0,0.3); border: 1px solid #4a7a4a; color: #7dbb7d; padding: 0.3rem 0.8rem; font-size: 0.65rem; cursor: pointer; border-radius: 2px; font-family: 'Lato', sans-serif; margin-right: 0.4rem; }
-    .btn-reject { background: rgba(80,0,0,0.3); border: 1px solid #7a4a4a; color: #bb7d7d; padding: 0.3rem 0.8rem; font-size: 0.65rem; cursor: pointer; border-radius: 2px; font-family: 'Lato', sans-serif; }
+    .btn-approve { background: rgba(0,80,0,0.3); border: 1px solid #4a7a4a; color: #7dbb7d; padding: 0.4rem 1rem; font-size: 0.7rem; cursor: pointer; border-radius: 2px; font-family: 'Lato', sans-serif; margin-right: 0.4rem; transition: all 0.2s; }
+    .btn-reject { background: rgba(80,0,0,0.3); border: 1px solid #7a4a4a; color: #bb7d7d; padding: 0.4rem 1rem; font-size: 0.7rem; cursor: pointer; border-radius: 2px; font-family: 'Lato', sans-serif; transition: all 0.2s; }
+    .btn-pending { background: rgba(201,168,76,0.1); border: 1px solid var(--gold-dim); color: var(--gold); padding: 0.4rem 1rem; font-size: 0.7rem; cursor: pointer; border-radius: 2px; font-family: 'Lato', sans-serif; transition: all 0.2s; }
+    .admin-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+    .admin-table th { font-family: 'Cinzel', serif; color: var(--gold-dim); font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; text-align: left; padding: 0.6rem 0.8rem; border-bottom: 1px solid rgba(201,168,76,0.15); }
+    .admin-table td { padding: 0.7rem 0.8rem; border-bottom: 1px solid rgba(255,255,255,0.05); color: var(--ivory); vertical-align: top; }
     .loading-text { color: var(--text-muted); font-style: italic; font-family: 'Cormorant Garamond', serif; padding: 1rem 0; }
+    .confirm-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 9999; display: flex; align-items: center; justify-content: center; padding: 2rem; }
+    .confirm-box { background: #0f0505; border: 1px solid var(--red-bright); border-radius: 8px; padding: 2rem; max-width: 340px; width: 100%; text-align: center; }
+    .confirm-title { font-family: 'Cinzel', serif; color: var(--gold); font-size: 1rem; margin-bottom: 0.8rem; }
+    .confirm-msg { font-family: 'Cormorant Garamond', serif; color: var(--text-muted); font-size: 1rem; line-height: 1.6; margin-bottom: 1.5rem; }
+    .confirm-btns { display: flex; gap: 0.8rem; justify-content: center; }
+    .btn-cancel { background: rgba(255,255,255,0.05); border: 1px solid rgba(201,168,76,0.3); color: var(--ivory); padding: 0.7rem 1.5rem; border-radius: 3px; cursor: pointer; font-family: 'Lato', sans-serif; font-size: 0.8rem; }
+    .btn-confirm-reject { background: linear-gradient(135deg, var(--red), #6b0000); border: 1px solid var(--gold-dim); color: var(--gold-light); padding: 0.7rem 1.5rem; border-radius: 3px; cursor: pointer; font-family: 'Cinzel', serif; font-size: 0.75rem; letter-spacing: 0.1em; }
     @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     @media (max-width: 600px) { .nav-links { display: none; } }
   </style>
 </head>
 <body>
 <div class="isiagu-bg"></div>
+
 <nav>
   <div class="nav-logo">AJC</div>
   <ul class="nav-links">
@@ -152,6 +157,7 @@
     <li><a href="#guestbook">Guestbook</a></li>
   </ul>
 </nav>
+
 <section id="hero">
   <p class="hero-ornament">✦ In Loving Memory ✦</p>
   <div class="hero-photo-wrapper"><div class="hero-photo-placeholder">AJC</div></div>
@@ -162,8 +168,9 @@
   <p class="hero-tagline">"AJC — Forever in our hearts,<br>forever in our prayers."</p>
   <p class="hero-scripture">"The righteous will flourish like a palm tree." — Psalm 92:12 (NWT)</p>
 </section>
+
 <section id="biography">
-  <div class="section" style="max-width:800px; margin:0 auto;">
+  <div class="section" style="max-width:800px;margin:0 auto;">
     <p class="section-label">His Story</p>
     <h2 class="section-title">A Life Well Lived</h2>
     <div class="gold-line"></div>
@@ -176,6 +183,7 @@
     </div>
   </div>
 </section>
+
 <section id="timeline">
   <div class="section">
     <p class="section-label">His Journey</p>
@@ -189,13 +197,14 @@
       <div class="timeline-item"><div class="timeline-dot"></div><p class="timeline-year">[YEAR]</p><p class="timeline-event">Became a father — the first of 5 children who would call him their rock, their refuge, and their greatest teacher.</p></div>
       <div class="timeline-item"><div class="timeline-dot"></div><p class="timeline-year">[YEAR]</p><p class="timeline-event">Retirement — traded blueprints for Bible studies and dedicated his days fully to family, faith and community.</p></div>
       <div class="timeline-item">
-        <div class="timeline-dot" style="background:var(--red); box-shadow: 0 0 10px var(--red);"></div>
+        <div class="timeline-dot" style="background:var(--red);box-shadow:0 0 10px var(--red);"></div>
         <p class="timeline-year" style="color:var(--text-muted);">[DATE OF PASSING]</p>
-        <p class="timeline-event" style="color:var(--text-muted); font-style:italic;">Entered his rest — leaving behind a legacy that no photograph can fully capture and no words can wholly contain.</p>
+        <p class="timeline-event" style="color:var(--text-muted);font-style:italic;">Entered his rest — leaving behind a legacy that no photograph can fully capture and no words can wholly contain.</p>
       </div>
     </div>
   </div>
 </section>
+
 <section id="gallery">
   <div class="section">
     <p class="section-label">Memories</p>
@@ -208,9 +217,10 @@
       <div class="gallery-item"><div class="gallery-placeholder"><span>🖼️</span><p>Career</p></div></div>
       <div class="gallery-item"><div class="gallery-placeholder"><span>🖼️</span><p>Community</p></div></div>
     </div>
-    <p style="margin-top:1.5rem; font-size:0.8rem; color:var(--text-muted); font-style:italic; text-align:center;">Photos will be added as they are gathered from family members.</p>
+    <p style="margin-top:1.5rem;font-size:0.8rem;color:var(--text-muted);font-style:italic;text-align:center;">Photos will be added as they are gathered from family members.</p>
   </div>
 </section>
+
 <section id="tributes">
   <div class="section">
     <p class="section-label">Words of Love</p>
@@ -220,12 +230,12 @@
   </div>
 </section>
 
-<section id="submit-tribute" style="padding: 6rem 1.5rem; background: linear-gradient(to bottom, transparent, rgba(139,0,0,0.06), transparent);">
+<section id="submit-tribute">
   <div class="section">
     <p class="section-label">Share Your Memory</p>
     <h2 class="section-title">Submit a Tribute</h2>
     <div class="gold-line"></div>
-    <p style="font-family:'Cormorant Garamond',serif; font-size:1.05rem; color:var(--text-muted); margin-bottom:2rem; line-height:1.7;">Did AJC impact your life? Whether you can make it to the service or not — your words matter. Submit a tribute and the family will review it before it appears on this page.</p>
+    <p style="font-family:'Cormorant Garamond',serif;font-size:1.05rem;color:var(--text-muted);margin-bottom:2rem;line-height:1.7;">Did AJC impact your life? Whether you can make it to the service or not — your words matter. Submit a tribute and the family will review it before it appears on this page.</p>
     <div class="guestbook-form">
       <div class="form-group"><label>Your Full Name *</label><input type="text" id="tr-name" placeholder="e.g. Chidi Okonkwo" /></div>
       <div class="form-group"><label>Your Relationship to AJC *</label><input type="text" id="tr-relationship" placeholder="e.g. Son, Grandchild, Friend, Congregation member…" /></div>
@@ -260,15 +270,16 @@
         <div class="programme-row"><span class="programme-time">[Time]</span><span class="programme-event">Family Reception</span></div>
       </div>
     </div>
-    <p style="margin-top:1rem; font-size:0.8rem; color:var(--text-muted); font-style:italic;">* All times and venues are placeholders and will be updated shortly.</p>
+    <p style="margin-top:1rem;font-size:0.8rem;color:var(--text-muted);font-style:italic;">* All times and venues are placeholders and will be updated shortly.</p>
   </div>
 </section>
+
 <section id="guestbook">
   <div class="section">
     <p class="section-label">Leave a Message</p>
     <h2 class="section-title">Sign the Guestbook</h2>
     <div class="gold-line"></div>
-    <p style="font-family:'Cormorant Garamond',serif; font-size:1.05rem; color:var(--text-muted); margin-bottom:2rem; line-height:1.7;">If AJC touched your life in any way, we would be honoured to hear from you. Leave a message for the family — all entries are reviewed before being displayed.</p>
+    <p style="font-family:'Cormorant Garamond',serif;font-size:1.05rem;color:var(--text-muted);margin-bottom:2rem;line-height:1.7;">If AJC touched your life in any way, we would be honoured to hear from you. Leave a message for the family — all entries are reviewed before being displayed.</p>
     <div class="guestbook-form">
       <div class="form-group"><label>Your Full Name *</label><input type="text" id="gb-name" placeholder="e.g. Chidi Okonkwo" /></div>
       <div class="form-group"><label>Your Relationship to AJC</label><input type="text" id="gb-relationship" placeholder="e.g. Family friend, Neighbour, Colleague…" /></div>
@@ -288,13 +299,16 @@
     </div>
   </div>
 </section>
+
 <footer>
   <p class="footer-name">Anyanwu Jonathan Chukwuma</p>
   <p class="footer-tagline">"AJC — Forever in our hearts."</p>
   <p class="footer-scripture">"He will swallow up death forever." — Isaiah 25:8 (NWT)</p>
   <p class="footer-copy">Designed with love by the Anyanwu Family</p>
 </footer>
+
 <a href="#" class="admin-link" onclick="openAdmin(event)">Admin ⚙</a>
+
 <div id="admin-panel">
   <div class="admin-header">
     <span class="admin-title">⚙ Admin Panel — AJC Memorial</span>
@@ -311,13 +325,13 @@
       </div>
     </div>
     <button class="btn-login" onclick="adminLogin()">Enter</button>
-    <p id="login-error" style="color:#bb7d7d; font-size:0.75rem; text-align:center; display:none;">Incorrect credentials. Try again.</p>
+    <p id="login-error" style="color:#bb7d7d;font-size:0.75rem;text-align:center;display:none;">Incorrect credentials. Try again.</p>
   </div>
   <div class="admin-dashboard" id="admin-dashboard">
     <div class="admin-tabs">
-      <button class="admin-tab active" onclick="switchTab('overview', this)">Overview</button>
-      <button class="admin-tab" onclick="switchTab('tributes-admin', this)">Tributes</button>
-      <button class="admin-tab" onclick="switchTab('guestbook-admin', this)">Guestbook / RSVPs</button>
+      <button class="admin-tab active" onclick="switchTab('overview',this)">Overview</button>
+      <button class="admin-tab" onclick="switchTab('tributes-admin',this)">Tributes</button>
+      <button class="admin-tab" onclick="switchTab('guestbook-admin',this)">Guestbook / RSVPs</button>
     </div>
     <div class="admin-content active" id="tab-overview">
       <div class="stat-card"><div><p class="stat-label">Total RSVPs</p><p class="stat-sub">Confirmed attending</p></div><p class="stat-value" id="stat-rsvp">—</p></div>
@@ -328,6 +342,7 @@
     <div class="admin-content" id="tab-guestbook-admin"><div id="admin-rsvp-list"><p class="loading-text">Loading...</p></div></div>
   </div>
 </div>
+
 <script>
   const SUPABASE_URL = 'https://jftaoytzrloanywysikn.supabase.co';
   const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpmdGFveXR6cmxvYW55d3lzaWtuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUxMzMzODksImV4cCI6MjA5MDcwOTM4OX0.jpfkaE-AtDElCekOYimJ9SefAD_hEIJqHGQtHp656gU';
@@ -335,13 +350,33 @@
   const db = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
   async function loadTributes() {
-    const { data, error } = await db.from('tributes').select('*').eq('status', 'approved').order('created_at', { ascending: false });
+    const { data, error } = await db.from('tributes').select('*').eq('status','approved').order('created_at',{ascending:false});
     const container = document.getElementById('tributes-list');
     if (error || !data || data.length === 0) {
       container.innerHTML = '<div class="empty-state">Tributes are being gathered and will appear here soon. 🕊️</div>';
       return;
     }
-    container.innerHTML = data.map(t => `<div class="tribute-card"><p class="tribute-text">${t.message}</p><p class="tribute-author">— ${t.name}${t.relationship ? ', ' + t.relationship : ''}</p></div>`).join('');
+    container.innerHTML = data.map(t => `
+      <div class="tribute-card">
+        <p class="tribute-text">${t.message}</p>
+        <p class="tribute-author">— ${t.name}${t.relationship ? ', ' + t.relationship : ''}</p>
+      </div>
+    `).join('');
+  }
+
+  async function submitTribute() {
+    const name = document.getElementById('tr-name').value.trim();
+    const relationship = document.getElementById('tr-relationship').value.trim();
+    const message = document.getElementById('tr-message').value.trim();
+    const btn = document.getElementById('tr-submit');
+    const success = document.getElementById('tr-success');
+    const errorEl = document.getElementById('tr-error');
+    errorEl.style.display = 'none';
+    if (!name || !message || !relationship) { errorEl.textContent = 'Please fill in all required fields.'; errorEl.style.display = 'block'; return; }
+    btn.disabled = true; btn.textContent = 'Sending…';
+    const { error } = await db.from('tributes').insert([{ name, relationship, message, status: 'pending' }]);
+    if (error) { errorEl.textContent = 'Something went wrong. Please try again.'; errorEl.style.display = 'block'; btn.disabled = false; btn.textContent = 'Submit Tribute'; }
+    else { success.style.display = 'block'; btn.style.display = 'none'; document.getElementById('tr-name').value = ''; document.getElementById('tr-relationship').value = ''; document.getElementById('tr-message').value = ''; }
   }
 
   async function submitGuestbook() {
@@ -356,40 +391,8 @@
     if (!name || !message) { errorEl.textContent = 'Please fill in your name and message.'; errorEl.style.display = 'block'; return; }
     btn.disabled = true; btn.textContent = 'Sending…';
     const { error } = await db.from('rsvps').insert([{ name, relationship, attending, message }]);
-    if (error) {
-      errorEl.textContent = 'Something went wrong. Please try again.';
-      errorEl.style.display = 'block';
-      btn.disabled = false; btn.textContent = 'Submit Message';
-    } else {
-      success.style.display = 'block'; btn.style.display = 'none';
-      document.getElementById('gb-name').value = '';
-      document.getElementById('gb-message').value = '';
-      document.getElementById('gb-relationship').value = '';
-      document.getElementById('gb-attending').value = '';
-    }
-  }
-
-  async function submitTribute() {
-    const name = document.getElementById('tr-name').value.trim();
-    const relationship = document.getElementById('tr-relationship').value.trim();
-    const message = document.getElementById('tr-message').value.trim();
-    const btn = document.getElementById('tr-submit');
-    const success = document.getElementById('tr-success');
-    const errorEl = document.getElementById('tr-error');
-    errorEl.style.display = 'none';
-    if (!name || !message || !relationship) { errorEl.textContent = 'Please fill in all required fields.'; errorEl.style.display = 'block'; return; }
-    btn.disabled = true; btn.textContent = 'Sending…';
-    const { error } = await db.from('tributes').insert([{ name, relationship, message, status: 'pending' }]);
-    if (error) {
-      errorEl.textContent = 'Something went wrong. Please try again.';
-      errorEl.style.display = 'block';
-      btn.disabled = false; btn.textContent = 'Submit Tribute';
-    } else {
-      success.style.display = 'block'; btn.style.display = 'none';
-      document.getElementById('tr-name').value = '';
-      document.getElementById('tr-relationship').value = '';
-      document.getElementById('tr-message').value = '';
-    }
+    if (error) { errorEl.textContent = 'Something went wrong. Please try again.'; errorEl.style.display = 'block'; btn.disabled = false; btn.textContent = 'Submit Message'; }
+    else { success.style.display = 'block'; btn.style.display = 'none'; document.getElementById('gb-name').value = ''; document.getElementById('gb-message').value = ''; document.getElementById('gb-relationship').value = ''; document.getElementById('gb-attending').value = ''; }
   }
 
   function togglePassword() {
@@ -415,24 +418,78 @@
   }
 
   async function loadAdminData() {
-    const { data: rsvps } = await db.from('rsvps').select('*').order('created_at', { ascending: false });
-    const { data: tributes } = await db.from('tributes').select('*').order('created_at', { ascending: false });
-    const attending = (rsvps || []).filter(r => r.attending === 'Yes').length;
-    const pending = (tributes || []).filter(t => t.status === 'pending').length;
+    const { data: rsvps } = await db.from('rsvps').select('*').order('created_at',{ascending:false});
+    const { data: tributes } = await db.from('tributes').select('*').order('created_at',{ascending:false});
+    const attending = (rsvps||[]).filter(r => r.attending === 'Yes').length;
+    const pending = (tributes||[]).filter(t => t.status === 'pending').length;
     document.getElementById('stat-rsvp').textContent = attending;
     document.getElementById('stat-pending').textContent = pending;
-    document.getElementById('stat-messages').textContent = (rsvps || []).length;
+    document.getElementById('stat-messages').textContent = (rsvps||[]).length;
+
     const tList = document.getElementById('admin-tributes-list');
-    if (!tributes || tributes.length === 0) { tList.innerHTML = '<p class="loading-text">No tributes submitted yet.</p>'; }
-    else { tList.innerHTML = '<table class="admin-table"><thead><tr><th>Name</th><th>Message</th><th>Status</th><th>Action</th></tr></thead><tbody>' + tributes.map(t => `<tr><td>${t.name}</td><td style="color:var(--text-muted);font-style:italic;font-size:0.85rem;">${t.message.substring(0,60)}…</td><td><span class="badge badge-${t.status}">${t.status}</span></td><td>${t.status==='pending'?`<button class="btn-approve" onclick="updateTribute('${t.id}','approved')">✓ Approve</button><button class="btn-reject" onclick="updateTribute('${t.id}','rejected')">✕ Reject</button>`:'—'}</td></tr>`).join('') + '</tbody></table>'; }
+    if (!tributes || tributes.length === 0) {
+      tList.innerHTML = '<p class="loading-text">No tributes submitted yet.</p>';
+    } else {
+      tList.innerHTML = tributes.map(t => `
+        <div class="tribute-admin-card">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:0.6rem;flex-wrap:wrap;gap:0.5rem;">
+            <div>
+              <p style="font-family:'Cinzel',serif;color:var(--gold);font-size:0.85rem;">${t.name}</p>
+              <p style="color:var(--text-muted);font-size:0.75rem;margin-top:0.2rem;">${t.relationship||''}</p>
+            </div>
+            <span class="badge badge-${t.status}">${t.status}</span>
+          </div>
+          <p style="font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--ivory);font-size:1rem;line-height:1.6;margin-bottom:1rem;">${t.message}</p>
+          <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
+            ${t.status === 'pending' ? `
+              <button class="btn-approve" onclick="updateTribute('${t.id}','approved')">✓ Approve</button>
+              <button class="btn-reject" onclick="confirmReject('${t.id}')">✕ Reject</button>
+            ` : t.status === 'approved' ? `
+              <button class="btn-reject" onclick="confirmReject('${t.id}')">✕ Reject</button>
+              <button class="btn-pending" onclick="updateTribute('${t.id}','pending')">↩ Move to Pending</button>
+            ` : `
+              <button class="btn-approve" onclick="updateTribute('${t.id}','approved')">✓ Approve</button>
+              <button class="btn-pending" onclick="updateTribute('${t.id}','pending')">↩ Move to Pending</button>
+            `}
+          </div>
+        </div>
+      `).join('');
+    }
+
     const rList = document.getElementById('admin-rsvp-list');
-    if (!rsvps || rsvps.length === 0) { rList.innerHTML = '<p class="loading-text">No messages yet.</p>'; }
-    else { rList.innerHTML = '<table class="admin-table"><thead><tr><th>Name</th><th>Relationship</th><th>RSVP</th><th>Message</th></tr></thead><tbody>' + rsvps.map(r => `<tr><td>${r.name}</td><td style="color:var(--text-muted);">${r.relationship||'—'}</td><td><span class="badge badge-${r.attending==='Yes'?'Yes':r.attending==='No'?'No':'notsure'}">${r.attending||'—'}</span></td><td style="color:var(--text-muted);font-style:italic;font-size:0.85rem;">${r.message?r.message.substring(0,50)+'…':'—'}</td></tr>`).join('') + '</tbody></table>'; }
+    if (!rsvps || rsvps.length === 0) {
+      rList.innerHTML = '<p class="loading-text">No messages yet.</p>';
+    } else {
+      rList.innerHTML = '<table class="admin-table"><thead><tr><th>Name</th><th>Relationship</th><th>RSVP</th><th>Message</th></tr></thead><tbody>' +
+        rsvps.map(r => `<tr>
+          <td>${r.name}</td>
+          <td style="color:var(--text-muted);">${r.relationship||'—'}</td>
+          <td><span class="badge badge-${r.attending==='Yes'?'Yes':r.attending==='No'?'No':'notsure'}">${r.attending||'—'}</span></td>
+          <td style="color:var(--text-muted);font-style:italic;font-size:0.85rem;">${r.message||'—'}</td>
+        </tr>`).join('') + '</tbody></table>';
+    }
   }
 
   async function updateTribute(id, status) {
     await db.from('tributes').update({ status }).eq('id', id);
-    loadAdminData(); loadTributes();
+    loadAdminData();
+    loadTributes();
+  }
+
+  function confirmReject(id) {
+    const overlay = document.createElement('div');
+    overlay.className = 'confirm-overlay';
+    overlay.innerHTML = `
+      <div class="confirm-box">
+        <p class="confirm-title">Confirm Rejection</p>
+        <p class="confirm-msg">Are you sure you want to reject this tribute? It will not appear on the website.</p>
+        <div class="confirm-btns">
+          <button class="btn-cancel" onclick="this.closest('.confirm-overlay').remove()">Cancel</button>
+          <button class="btn-confirm-reject" onclick="updateTribute('${id}','rejected');this.closest('.confirm-overlay').remove();">Yes, Reject</button>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(overlay);
   }
 
   function switchTab(tab, el) {
