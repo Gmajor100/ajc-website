@@ -58,13 +58,19 @@
     .gallery-placeholder { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; color: var(--gold-dim); }
     .gallery-placeholder span { font-size: 1.5rem; }
     .gallery-placeholder p { font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; }
-    #tributes { padding: 6rem 1.5rem; }
-    .tribute-carousel { display: flex; gap: 1.2rem; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 1.5rem; scrollbar-width: none; -ms-overflow-style: none; }
+    #tributes { padding: 6rem 0 6rem; }
+    #tributes .section { padding: 0 1.5rem; }
+    .tribute-counter { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1rem; color: var(--text-muted); margin-bottom: 1.5rem; }
+    .tribute-counter span { color: var(--gold); font-style: normal; font-family: 'Cinzel', serif; }
+    .tribute-carousel { display: flex; gap: 0; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; -ms-overflow-style: none; }
     .tribute-carousel::-webkit-scrollbar { display: none; }
-    .tribute-card { background: linear-gradient(135deg, rgba(139,0,0,0.12), rgba(10,10,10,0.8)); border: 1px solid rgba(201,168,76,0.2); border-radius: 6px; padding: 2rem; position: relative; scroll-snap-align: start; min-width: 280px; max-width: 320px; flex-shrink: 0; }
+    .tribute-card { background: linear-gradient(135deg, rgba(139,0,0,0.12), rgba(10,10,10,0.8)); border-left: 1px solid rgba(201,168,76,0.2); border-right: 1px solid rgba(201,168,76,0.2); padding: 2.5rem 2rem 2rem; position: relative; scroll-snap-align: start; width: 100vw; min-width: 100vw; flex-shrink: 0; min-height: 220px; display: flex; flex-direction: column; justify-content: space-between; }
     .tribute-card::before { content: '"'; font-family: 'Cormorant Garamond', serif; font-size: 5rem; color: var(--red); position: absolute; top: -0.5rem; left: 1rem; opacity: 0.4; line-height: 1; }
     .tribute-text { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.1rem; line-height: 1.7; color: var(--ivory); padding-top: 1rem; }
     .tribute-author { margin-top: 1rem; font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); }
+    .tribute-dots { display: flex; justify-content: center; gap: 0.5rem; margin-top: 1.2rem; }
+    .tribute-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(201,168,76,0.25); transition: all 0.3s; cursor: pointer; }
+    .tribute-dot.active { background: var(--gold); box-shadow: 0 0 8px var(--gold); width: 18px; border-radius: 3px; }
     .empty-state { text-align: center; padding: 2rem; border: 1px dashed rgba(201,168,76,0.3); border-radius: 6px; color: var(--text-muted); font-style: italic; font-family: 'Cormorant Garamond', serif; font-size: 1rem; }
     #submit-tribute { padding: 6rem 1.5rem; background: linear-gradient(to bottom, transparent, rgba(139,0,0,0.06), transparent); }
     #guestbook { padding: 6rem 1.5rem; }
@@ -232,9 +238,11 @@
     <p class="section-label">Words of Love</p>
     <h2 class="section-title">Family Tributes</h2>
     <div class="gold-line"></div>
-    <div id="tributes-list"><p class="loading-text">Loading tributes...</p></div>
-    <p style="margin-top:1rem;font-size:0.75rem;color:var(--gold-dim);text-align:center;letter-spacing:0.1em;">← Swipe to read more tributes →</p>
+    <p class="tribute-counter" id="tribute-counter"></p>
   </div>
+  <div id="tributes-list"></div>
+  <div class="tribute-dots" id="tribute-dots"></div>
+  <p style="margin-top:1rem;font-size:0.72rem;color:var(--gold-dim);text-align:center;letter-spacing:0.12em;">← Swipe to read tributes →</p>
 </section>
 
 <section id="submit-tribute">
@@ -359,16 +367,38 @@
   async function loadTributes() {
     const { data, error } = await db.from('tributes').select('*').eq('status','approved').order('created_at',{ascending:false});
     const container = document.getElementById('tributes-list');
+    const dotsContainer = document.getElementById('tribute-dots');
+    const counter = document.getElementById('tribute-counter');
     if (error || !data || data.length === 0) {
-      container.innerHTML = '<div class="empty-state">Tributes are being gathered and will appear here soon. 🕊️</div>';
+      container.innerHTML = '<div style="padding:0 1.5rem;"><div class="empty-state">Tributes are being gathered and will appear here soon. 🕊️</div></div>';
+      if (counter) counter.textContent = '';
       return;
     }
-    container.innerHTML = `<div class="tribute-carousel">` + data.map(t => `
+    const count = data.length;
+    if (counter) counter.innerHTML = `<span>${count}</span> tribute${count !== 1 ? 's' : ''} and counting…`;
+    container.innerHTML = `<div class="tribute-carousel" id="tribute-carousel">` + data.map(t => `
       <div class="tribute-card">
         <p class="tribute-text">${t.message}</p>
         <p class="tribute-author">— ${t.name}${t.relationship ? ', ' + t.relationship : ''}</p>
       </div>
     `).join('') + `</div>`;
+    if (dotsContainer) {
+      dotsContainer.innerHTML = data.map((_, i) => `<div class="tribute-dot ${i === 0 ? 'active' : ''}" onclick="scrollToTribute(${i})"></div>`).join('');
+      const carousel = document.getElementById('tribute-carousel');
+      if (carousel) {
+        carousel.addEventListener('scroll', () => {
+          const index = Math.round(carousel.scrollLeft / window.innerWidth);
+          document.querySelectorAll('.tribute-dot').forEach((d, i) => {
+            d.classList.toggle('active', i === index);
+          });
+        });
+      }
+    }
+  }
+
+  function scrollToTribute(index) {
+    const carousel = document.getElementById('tribute-carousel');
+    if (carousel) carousel.scrollTo({ left: index * window.innerWidth, behavior: 'smooth' });
   }
 
   function initCandles() {
